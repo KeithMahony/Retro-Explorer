@@ -65,8 +65,6 @@ class HomeController < ApplicationController
   end
 
 def relic
-
-
 end
 
 
