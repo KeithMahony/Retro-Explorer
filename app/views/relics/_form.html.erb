@@ -1,0 +1,30 @@
+<%= form_with(model: relic) do |form| %>
+  <% if relic.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(relic.errors.count, "error") %> prohibited this relic from being saved:</h2>
+
+      <ul>
+        <% relic.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field form-group">
+    <%= form.text_field :device_name, class: "form-control", placeholder: "Designation" %>
+  </div>
+
+  <div class="field form-group">
+    <%= form.text_field :device_output, class: "form-control", placeholder: "Output" %>
+  </div>
+
+<!-- Get and Set User ID in the background -->
+  <div class="field form-group">
+    <%= form.number_field :user_id, id: :relic_user_id, class: "form-control", value: current_user.id, type: "hidden" %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit class: "btn btn-secondary" %>
+  </div>
+<% end %>

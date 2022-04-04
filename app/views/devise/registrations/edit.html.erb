@@ -1,0 +1,81 @@
+<body style="background-color:#1d1e1f;">
+    <div class="p-3 mb-2 bg-gradient outline green">
+      <div class="container">
+        <h1 class="display-4 whiteTxt">[Character Name]</h1>
+        <p class="whiteTxt"><%= @user.email %></p>
+
+        <hr class="my-4">
+
+        <p class="whiteTxt">Level: 21</p>
+        <p class="whiteTxt">Likes Recieved: </p>
+
+        <hr class="my-4">
+
+        <p class="whiteTxt">Relics Collected -> </p>
+        <p class="whiteTxt">Projections Collected -> </p>
+        <p class="whiteTxt">Locations Visited -> </p>
+        <p class="whiteTxt">Messages Placed -> </p>
+
+        <hr class="my-4">
+
+        <div class="d-grid gap-2 d-md-flex">
+          <%= link_to "View Relics", relics_path, class: "btn btn-outline-light" %>
+          <%= link_to "View Projections", relics_path, class: "btn btn-outline-light" %>
+          <%= link_to "View Messages", relics_path, class: "btn btn-outline-light" %>
+        </div>
+      </div>
+    </div>
+
+  <br/>
+
+  <div class = "container">
+    <div class="card text-white bg-dark mb-3"">
+      <div class="card-header">
+        Edit Profile
+      </div>
+      <div class="card-body">
+        <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
+          <%= render "devise/shared/error_messages", resource: resource %>
+
+          <div class="field form-group">
+            <% f.label :email %><br />
+            <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "form-control", placeholder:"Email" %>
+          </div>
+
+          <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
+            <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
+          <% end %>
+
+          <div class="field form-group">
+            <%= f.password_field :password, autocomplete: "new-password", class: "form-control", placeholder:"Password (leave blank if you don't want to change it)" %>
+            <% if @minimum_password_length %>
+              <em class ="whiteTxt"><%= @minimum_password_length %> characters minimum</em>
+            <% end %>
+          </div>
+
+          <div class="field form-group">
+            <% f.label :password_confirmation %><br />
+            <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "form-control", placeholder:"New Password" %>
+          </div>
+
+          <div class="field form-group">
+            <%= f.password_field :current_password, autocomplete: "current-password", class: "form-control", placeholder:"Current Password" %>
+          </div>
+
+          <br/>
+
+          <div class="actions">
+            <%= f.submit "Update", class: "btn btn-outline-light" %>
+          </div>
+
+        <% end %>
+        </div>
+    </div>
+</div>
+
+
+<br/>
+<div class="d-grid gap-2 col-6 mx-auto">
+  <%= link_to "Delete my Profile", registration_path(resource_name), class: "btn btn-danger" , data: { confirm: "Are you sure?" }, method: :delete %>
+</div>
+<br/>

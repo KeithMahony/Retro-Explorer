@@ -1,0 +1,59 @@
+<body style="background-color:#1d1e1f;">
+
+<% if user_signed_in? %>
+
+  <div class="p-3 mb-2 bg-gradient outline <%= @apiColour %> ">
+    <div class="container">
+      <h1 class="display-4 whiteTxt"><%= @locationName %>, <%= @stateName %></h1>
+      <p class="whiteTxt">
+        A glowing device in your hand beeps twice. It's display informs you of your geolocation, and what the area was known as before the collapse, "Las Vegas".
+        Below the device's 'AID' label, a pulsing display is home to a barrage of real-time information...
+      </p>
+      <p class="whiteTxt">Air Quality -> <%= @aqiTweakedLabel %></p>
+      <!-- <p class="whiteTxt">Air Quality Pre-Collapse -> <%= @aqiOriginalLabel %></p> -->
+      <hr class="my-4">
+      <p class="whiteTxt">Explore the area to gather data and find relics of a forgotten past.</p>
+      <div class="d-grid gap-2">
+        <button type="button" class="btn btn-outline-light">Search the Area</button>
+      </div>
+      <hr class="my-4">
+      <p class="whiteTxt">Travel to a new location.</p>
+      <button type="button" class="btn btn-outline-light">Travel East</button>
+      <button type="button" class="btn btn-outline-light">Travel West</button>
+    </div>
+  </div>
+
+<% else %>
+
+<div class="p-3 mb-2 bg-gradient outline <%= @apiColour %> ">
+  <div class="container">
+    <h1 class="display-4 whiteTxt">Retro Explorer</h1>
+    <hr class="my-4">
+    <p class="whiteTxt">
+      Retro Explorer is a game in which you explore the remains of Earth decades after an environmental disaster.
+      Collect relics and projections, or leave messages for future generations of explorers.
+    </p>
+    <hr class="my-4">
+    <!-- <p class="whiteTxt">Explore the area to gather data and find relics of a forgotten past.</p> -->
+    <div class="d-grid gap-2">
+      <%= link_to 'Play', new_user_session_path , class: "btn btn-light"%>
+    </div>
+    <hr class="my-4">
+    <!-- <p class="whiteTxt">Travel to a new location.</p>
+    <button type="button" class="btn btn-outline-light">Travel East</button>
+    <button type="button" class="btn btn-outline-light">Travel West</button> -->
+  </div>
+</div>
+
+<% end %>
+
+<!-- Danger Levels
+Good - 	Air quality is satisfactory, and air pollution poses little or no risk.
+Moderate - 	Air quality is acceptable. However, there may be a risk for some people, particularly those who are unusually sensitive to air pollution.
+Unhealthy for certain groups - Members of sensitive groups may experience health effects. The general public is less likely to be affected.
+Unhealthy - Some members of the general public may experience health effects; members of sensitive groups may experience more serious health effects.
+Very Unhealthy - Health alert: The risk of health effects is increased for everyone.
+Hazardous - Health warning of emergency conditions: everyone is more likely to be affected.
+ -->
+
+<br/>
