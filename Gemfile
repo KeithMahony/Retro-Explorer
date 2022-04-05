@@ -29,6 +29,8 @@ gem 'jbuilder', '~> 2.7'
 
 gem 'devise', '~> 4.8', '>= 4.8.1'
 
+gem 'twitter', '~> 7.0'
+
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.4.4', require: false
 

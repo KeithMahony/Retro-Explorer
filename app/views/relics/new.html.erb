@@ -1,7 +1,28 @@
-<h1>New Relic</h1>
+<body style="background-color:#1d1e1f;">
+<div class="container">
 
-<%= render 'form', relic: @relic %>
+  <div class="card text-center">
+    <div class="card-header">
+      You have discovered a new relic!
+    </div>
+    <div class="card-body bg-dark">
+      <div class = "container">
+        <div class="p-3 mb-2 bg-gradient outline rounded">
+          <h1 class="display-4 whiteTxt">Glass-Faced Electrical Device</h1>
+          <br/>
+          <p class="whiteTxt"> Printing data extracted from the device to screen... </p>
+          <hr class="my-4">
+          <p class="whiteTxt">"<%= @tweet1 %>"</p>
+          <br/>
+          <%= render 'form', relic: @relic %>
+          <br/>
+          <%= link_to 'Discard', root_path, data: { confirm: 'Are you sure you want to discard this relic?' }, class: "btn btn-outline-danger btn-sm"%>
+        </div>
 
-<br/>
-
-<%= link_to 'Back', relics_path, class: "btn btn-dark" %>
+      </div>
+    </div>
+    <div class="card-footer text-muted">
+      Discovered in Las Vegas
+    </div>
+  </div>
+</div>

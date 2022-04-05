@@ -12,19 +12,25 @@
   <% end %>
 
   <div class="field form-group">
-    <%= form.text_field :device_name, class: "form-control", placeholder: "Designation" %>
+    <% if @minimum_password_length %>
+    <em>(<%= @minimum_password_length %> characters minimum)</em>
+    <% end %><br />
+    <%= form.text_field :device_name, class: "form-control", value: @relicName %>
   </div>
 
-  <div class="field form-group">
-    <%= form.text_field :device_output, class: "form-control", placeholder: "Output" %>
-  </div>
+  <!-- Get and Set Device Output in the background -->
+    <div class="field form-group">
+      <%= form.text_field :device_output, class: "form-control", value: @tweet1, type: "hidden" %>
+    </div>
 
 <!-- Get and Set User ID in the background -->
   <div class="field form-group">
-    <%= form.number_field :user_id, id: :relic_user_id, class: "form-control", value: current_user.id, type: "hidden" %>
+    <%= form.text_field :user_id, id: :relic_user_id, class: "form-control", value: current_user.id, type: "hidden" %>
   </div>
 
+  <br/>
+
   <div class="actions">
-    <%= form.submit class: "btn btn-secondary" %>
+    <%= form.submit "Collect this Relic", class: 'btn btn-outline-light' %>
   </div>
 <% end %>

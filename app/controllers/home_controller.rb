@@ -37,7 +37,7 @@ class HomeController < ApplicationController
       @aqiTweakedLabel = "USG - Members of sensitive groups may experience health effects. The general public is less likely to be affected."
     elsif @aqiTweaked >= 151 && @aqiTweaked <= 200
       @apiColour = "red"
-      @aqiTweakedLabel = "Unhealthy - Some members of the general public may experience health effects; members of sensitive groups may experience more serious health effects."
+      @aqiTweakedLabel = "Members of the general public may experience health effects."
     elsif @aqiTweaked >= 201 && @aqiTweaked <= 300
       @apiColour = "purple"
       @aqiTweakedLabel = "Health alert - The risk of health effects is increased for everyone in this area."

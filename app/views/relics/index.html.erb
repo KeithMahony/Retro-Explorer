@@ -21,7 +21,7 @@
             <td><%= link_to relic.device_name, relic, class: "btn btn-outline-light whiteTxt btn-sm" %></td>
             <td class = "whiteTxt"><%= relic.device_output %></td>
             <td class = "whiteTxt"><%= relic.user_id %></td>
-            <td><%= link_to 'Edit', edit_relic_path(relic), class: "btn btn-outline-light btn-sm" %></td>
+            <td><%= link_to 'Rename', edit_relic_path(relic), class: "btn btn-outline-light btn-sm" %></td>
             <td><%= link_to 'Destroy', relic, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-outline-danger btn-sm" %></td>
           </tr>
         <% end %>
@@ -30,7 +30,5 @@
   </table>
 
   <br>
-
-  <%= link_to 'New Relic', new_relic_path %>
 
 </div>
