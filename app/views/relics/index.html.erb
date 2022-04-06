@@ -2,32 +2,60 @@
 
 <div class="container">
 
-  <table class="table table-dark table-striped table-hover align-middle">
-    <thead>
-      <tr>
-        <th class = "whiteTxt">Device Designation</th>
-        <th class = "whiteTxt">Decrypted Data</th>
-        <th class = "whiteTxt">Discovered By</th>
-        <th colspan="2"></th>
-      </tr>
-    </thead>
+  <!-- ADMIN - Show All Relics -->
+  <% if  current_user.try(:admin?) %>
+    <table class="table table-dark table-striped table-hover align-middle">
+      <thead>
+        <tr>
+          <th class = "whiteTxt">Device Designation</th>
+          <th class = "whiteTxt">Decrypted Data</th>
+          <th class = "whiteTxt">Discovered By</th>
+          <th colspan="2"></th>
+        </tr>
+      </thead>
 
+      <tbody>
+        <% @relics.each do |relic| %>
+            <tr>
+              <td><%= link_to relic.device_name, relic, class: "btn btn-outline-light whiteTxt btn-sm" %></td>
+              <td class = "whiteTxt"><%= relic.device_output %></td>
+              <td class = "whiteTxt"><%= relic.user_id %></td>
+              <td><%= link_to 'Rename', edit_relic_path(relic), class: "btn btn-outline-light btn-sm" %></td>
+              <td><%= link_to 'Destroy', relic, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-outline-danger btn-sm" %></td>
+            </tr>
+        <% end %>
+      </tbody>
+    </table>
+
+  <% else %>
 
   <!-- Show Only Relics discovered by User Logged In -->
-    <tbody>
-      <% @relics.each do |relic| %>
-        <% if  relic.user == current_user %>
-          <tr>
-            <td><%= link_to relic.device_name, relic, class: "btn btn-outline-light whiteTxt btn-sm" %></td>
-            <td class = "whiteTxt"><%= relic.device_output %></td>
-            <td class = "whiteTxt"><%= relic.user_id %></td>
-            <td><%= link_to 'Rename', edit_relic_path(relic), class: "btn btn-outline-light btn-sm" %></td>
-            <td><%= link_to 'Destroy', relic, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-outline-danger btn-sm" %></td>
-          </tr>
+
+    <table class="table table-dark table-striped table-hover align-middle">
+      <thead>
+        <tr>
+          <th class = "whiteTxt">Device Designation</th>
+          <th class = "whiteTxt">Decrypted Data</th>
+          <th class = "whiteTxt">Discovered By</th>
+          <th colspan="2"></th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <% @relics.each do |relic| %>
+          <% if  relic.user == current_user %>
+            <tr>
+              <td><%= link_to relic.device_name, relic, class: "btn btn-outline-light whiteTxt btn-sm" %></td>
+              <td class = "whiteTxt"><%= relic.device_output %></td>
+              <td class = "whiteTxt"><%= relic.user_id %></td>
+              <td><%= link_to 'Rename', edit_relic_path(relic), class: "btn btn-outline-light btn-sm" %></td>
+              <td><%= link_to 'Destroy', relic, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-outline-danger btn-sm" %></td>
+            </tr>
+          <% end %>
         <% end %>
-      <% end %>
-    </tbody>
-  </table>
+      </tbody>
+    </table>
+  <% end %>
 
   <br>
 
