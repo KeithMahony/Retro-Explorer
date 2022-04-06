@@ -3,7 +3,9 @@
 one:
   device_name: MyString
   device_output: MyString
+  user_id: 7
 
 two:
   device_name: MyString
   device_output: MyString
+  user_id: 8

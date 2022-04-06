@@ -87,6 +87,7 @@ GEM
       railties (>= 4.1.0)
       responders
       warden (~> 1.2.3)
+    digest (3.1.0)
     domain_name (0.5.20190701)
       unf (>= 0.0.5, < 1.0.0)
     equalizer (0.0.11)
@@ -132,6 +133,12 @@ GEM
     msgpack (1.4.5)
     multipart-post (2.1.1)
     naught (1.1.0)
+    net-protocol (0.1.3)
+      timeout
+    net-smtp (0.3.1)
+      digest
+      net-protocol
+      timeout
     nio4r (2.5.8)
     nokogiri (1.13.3-x86_64-linux)
       racc (~> 1.4)
@@ -212,6 +219,7 @@ GEM
     thor (1.2.1)
     thread_safe (0.3.6)
     tilt (2.0.10)
+    timeout (0.2.0)
     turbolinks (5.2.1)
       turbolinks-source (~> 5.2)
     turbolinks-source (5.2.0)
@@ -265,6 +273,8 @@ DEPENDENCIES
   jbuilder (~> 2.7)
   json (~> 2.6, >= 2.6.1)
   listen (~> 3.3)
+  mail
+  net-smtp
   pg (~> 1.3, >= 1.3.5)
   puma (~> 5.0)
   rack-mini-profiler (~> 2.0)

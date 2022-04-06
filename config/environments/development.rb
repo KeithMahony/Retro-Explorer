@@ -4,8 +4,8 @@ Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
 
   ## ADDED TO STREAMLINE DEVELOPMENT
-  config.reload_classes_only_on_change = false
-  config.serve_static_assets = false
+  # config.reload_classes_only_on_change = false
+  # config.serve_static_assets = false
 
   # In the development environment your application's code is reloaded any time
   # it changes. This slows down response time but is perfect for development
