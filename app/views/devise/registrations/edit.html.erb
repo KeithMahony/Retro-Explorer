@@ -1,14 +1,15 @@
 <body style="background-color:#1d1e1f;">
+
+
     <div class="p-3 mb-2 bg-gradient outline green">
       <div class="container">
-        <h1 class="display-4 whiteTxt"><%= @user.username %></h1>
+        <h1 class="display-4 whiteTxt"><%= @user.username %> </h1>
         <p class="whiteTxt"><%= @user.email %></p>
 
         <hr class="my-4">
 
         <p class="whiteTxt">Level: 21</p>
         <p class="whiteTxt">Likes Recieved: </p>
-        <p class="whiteTxt"> <%= @user.admin %> </p>
 
         <hr class="my-4">
 
@@ -32,31 +33,28 @@
   <div class = "container">
     <div class="card text-white bg-dark mb-3"">
       <div class="card-header">
-        Edit Profile
+        Edit Profile and Change Location
       </div>
       <div class="card-body">
         <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
           <%= render "devise/shared/error_messages", resource: resource %>
 
           <div class="field form-group">
-            <% f.label :email %><br />
-            <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "form-control", placeholder:"Email" %>
+            <%= f.number_field :location, autofocus: true, class: "form-control", value: @user.location %>
           </div>
 
-          <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
-            <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
-          <% end %>
+          <div class="field form-group">
+            <% f.label :email %><br />
+            <%= f.email_field :email, autocomplete: "email", class: "form-control", placeholder:"Email" %>
+          </div>
 
           <div class="field form-group">
-            <%= f.password_field :password, autocomplete: "new-password", class: "form-control", placeholder:"Password (leave blank if you don't want to change it)" %>
-            <% if @minimum_password_length %>
-              <em class ="whiteTxt"><%= @minimum_password_length %> characters minimum</em>
-            <% end %>
+            <%= f.password_field :password, autocomplete: "new-password", class: "form-control", placeholder:"New Password (leave blank if you don't want to change it)" %>
           </div>
 
           <div class="field form-group">
             <% f.label :password_confirmation %><br />
-            <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "form-control", placeholder:"New Password" %>
+            <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "form-control", placeholder:"Confirm New Password" %>
           </div>
 
           <div class="field form-group">

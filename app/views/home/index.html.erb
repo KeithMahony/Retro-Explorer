@@ -6,22 +6,22 @@
     <div class="container">
       <h1 class="display-4 whiteTxt"><%= @locationName %>, <%= @stateName %></h1>
       <p class="whiteTxt">
-        A glowing device in your hand beeps twice. It's display informs you of your geolocation, and what the area was known as before the collapse, "Las Vegas".
-        Below the device's 'AID' label, a pulsing display is home to a barrage of real-time information...
+        <%= @description %>
       </p>
       <p class="whiteTxt">Air Quality -> <%= @aqiTweakedLabel %></p>
       <!-- <p class="whiteTxt">Air Quality Pre-Collapse -> <%= @aqiOriginalLabel %></p> -->
       <hr class="my-4">
-      <p class="whiteTxt">Explore the area to gather data and find relics of a forgotten past.</p>
+      <p class="whiteTxt">Explore the area to gather data and find relics of a forgotten past. </p>
       <div class="d-grid gap-2">
         <%= link_to 'Search the Area', new_relic_path, class: "btn btn-outline-light"%>
       </div>
       <hr class="my-4">
       <p class="whiteTxt">Travel to a new location.</p>
-      <button type="button" class="btn btn-outline-light">Travel East</button>
-      <button type="button" class="btn btn-outline-light">Travel West</button>
+      <%= link_to 'Change Location', edit_user_registration_path , class: "btn btn-outline-light"%>
+      <br/>
     </div>
   </div>
+
 
 <% else %>
 

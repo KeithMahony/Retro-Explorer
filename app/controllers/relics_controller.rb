@@ -24,6 +24,29 @@ class RelicsController < ApplicationController
     # @relic = Relic.new
     @relic = current_user.relics.build
 
+    # Air Now API
+    @url = 'https://www.airnowapi.org/aq/observation/zipCode/current/?format=application/json&zipCode=' + current_user.try(:location).to_s + '&distance=50&API_KEY=28F5C95B-17E7-4E9E-8124-9D6CDA1677FE'
+    @uri = URI(@url)
+    @response = Net::HTTP.get(@uri)
+    @output = JSON.parse(@response)
+
+    # Check API call is valid
+    # Update Twitter API call
+    if @output.empty? || !@output
+      @aqiOriginal = "AID cannot get a read from this location."
+      @aqiTweaked = "AID cannot get a read from this location."
+      @aqiTweakedLabel = "AID cannot get a read from this location."
+      @locationName = "Unknown Location"
+      @stateName = "Planet e32972"
+      url = URI("https://api.twitter.com/2/tweets/search/recent?query=world ending")
+    else
+      @aqiOriginal = @output[0]['AQI']
+      @aqiTweaked = (@output[0]['AQI']) *10
+      @locationName = @output[0]['ReportingArea']
+      @stateName = @output[0]['StateCode']
+      url = URI("https://api.twitter.com/2/tweets/search/recent?query=" + @locationName)
+    end
+
     # client = Twitter::REST::Client.new do |config|
     # config.consumer_key        = "q6smznXFNdlfqHqLl9ir7YlSi"
     # config.consumer_secret     = "EoxUjend1R86u8ImdMcvMQF2hN95xl3MUHY4loor9W6usLF5Mu"
@@ -31,12 +54,10 @@ class RelicsController < ApplicationController
     # # config.access_token_secret = "YOUR_ACCESS_SECRET"
     # end
 
-
     # Set Relic Device Name
     @relicName = "Glass-Faced Device"
 
     # Set Relic Output
-    url = URI("https://api.twitter.com/2/tweets/search/recent?query=Las Vegas")
     https = Net::HTTP.new(url.host, url.port)
     https.use_ssl = true
 
