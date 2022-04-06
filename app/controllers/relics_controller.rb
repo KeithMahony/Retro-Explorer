@@ -9,11 +9,6 @@ class RelicsController < ApplicationController
   # prevent user finding workarounds client side
   before_action :correct_user, only: [:edit, :update, :destroy]
 
-
-  def generateNewRelicData
-
-  end
-
   # GET /relics or /relics.json
   def index
     @relics = Relic.all
@@ -53,8 +48,6 @@ class RelicsController < ApplicationController
     @collection = JSON.parse(response.body)
     @tweet1 = @collection["data"][0]["text"]
 
-
-
   end
 
   # GET /relics/1/edit
@@ -65,6 +58,7 @@ class RelicsController < ApplicationController
   # POST /relics or /relics.json
   def create
     # @relic = Relic.new(relic_params)
+    # @relic = current_user.relics.build(params[:relic]) <--- Come back to this to have User IDs display as usernames
     @relic = current_user.relics.build(relic_params)
 
     respond_to do |format|

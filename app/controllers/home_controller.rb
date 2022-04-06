@@ -67,5 +67,9 @@ class HomeController < ApplicationController
 def relic
 end
 
+def userInfo
+  @userInfo = form_for(current_user)
+end
+
 
 end
