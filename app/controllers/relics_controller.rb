@@ -1,6 +1,7 @@
 require 'json'
 require "uri"
 require "net/http"
+require 'draper'
 # require 'tweet_finder'
 
 class RelicsController < ApplicationController
@@ -13,10 +14,12 @@ class RelicsController < ApplicationController
   # GET /relics or /relics.json
   def index
     @relics = Relic.all
+    # @relicAbv = Relic.find(params[:id]).decorate
   end
 
   # GET /relics/1 or /relics/1.json
   def show
+    @relicAbv = Relic.find(params[:id]).decorate
   end
 
   # Updated method to generate relic output and associate relics with a user

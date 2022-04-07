@@ -14,6 +14,8 @@ class Users::RegistrationsController < Devise::RegistrationsController
     super
   end
 
+  # def show
+  # end
   # POST /resource
   def create
     super

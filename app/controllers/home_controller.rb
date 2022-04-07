@@ -1,4 +1,6 @@
 class HomeController < ApplicationController
+  before_action :set_breadcrumbs
+
   def index
     require 'net/http'
     require 'json'
@@ -7,17 +9,17 @@ class HomeController < ApplicationController
     @output = Locate.runLocator(current_user.try(:location))
 
     # Check API call is valid / in a relevant location
-    if @output.empty? || !@output
+    if !@output.empty? || !@output
+      @aqiOriginal = @output[0]['AQI']
+      @aqiTweaked = (@output[0]['AQI']) * 7
+      @locationName = @output[0]['ReportingArea']
+      @stateName = @output[0]['StateCode']
+    else
       @aqiOriginal = "AID cannot get a read from this location."
       @aqiTweaked = "AID cannot get a read from this location."
       @aqiTweakedLabel = "AID cannot get a read from this location."
       @locationName = "Unknown Location"
       @stateName = "Planet e32972"
-    else
-      @aqiOriginal = @output[0]['AQI']
-      @aqiTweaked = (@output[0]['AQI']) * 7
-      @locationName = @output[0]['ReportingArea']
-      @stateName = @output[0]['StateCode']
     end
 
     @description = "A glowing device in your hand beeps twice. It's display informs you of your geolocation, and what the area was known as before the collapse, " + @locationName + ".
@@ -44,7 +46,7 @@ class HomeController < ApplicationController
     elsif @aqiTweaked >= 201 && @aqiTweaked <= 300
       @apiColour = "purple"
       @aqiTweakedLabel = "Health alert - The risk of health effects is increased for everyone in this area."
-    elsif @aqiTweaked >= 301 && @aqiTweaked <= 500
+    elsif @aqiTweaked >= 301
       @apiColour = "maroon"
       @aqiTweakedLabel = "Health warning of emergency conditions - everyone likely to be affected by conditions in this area."
     end
@@ -67,12 +69,49 @@ class HomeController < ApplicationController
     end
   end
 
-def relic
-end
+# Collect cookies containing basic user information
+  def set_cookie
+    cookies.permanent.signed[:username] = current_user.try(:username)
+    cookies.permanent.signed[:email] = current_user.try(:email)
+    cookies.permanent.signed[:location] = current_user.try(:location)
+  end
 
-def userInfo
-  @userInfo = form_for(current_user)
-end
+  def show_cookie
+    @u_name = cookies[:username]
+    @e_mail = cookies[:email]
+    @u_location = cookies[:location]
+  end
 
+  def delete_cookie
+    cookies.delete :username
+    cookies.delete :email
+    cookies.delete :location
+  end
+
+  # Keep track of user movement through application
+  private
+  def set_breadcrumbs
+    if session[:breadcrumbs]
+      @breadcrumbs = session[:breadcrumbs]
+    else
+    @breadcrumbs = Array.new
+    end
+
+    @breadcrumbs.push(request.url)
+
+    if @breadcrumbs.count > 4
+      @breadcrumbs.shift
+    end
+
+    session[:breadcrumbs] = @set_breadcrumbs
+
+  end
+
+  def relic
+  end
+
+  def userInfo
+    @userInfo = form_for(current_user)
+  end
 
 end

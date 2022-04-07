@@ -36,6 +36,7 @@ gem 'devise', '~> 4.8', '>= 4.8.1'
 gem 'mail'
 gem 'twitter', '~> 7.0'
 gem 'net-smtp', require: false
+gem 'activerecord-session_store'
 
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.4.4', require: false
@@ -69,3 +70,5 @@ end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
+
+gem "draper", "~> 4.0"
