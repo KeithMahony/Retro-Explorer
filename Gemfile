@@ -27,6 +27,11 @@ gem 'jbuilder', '~> 2.7'
 # Use Active Storage variant
 # gem 'image_processing', '~> 1.2'
 
+# Custom Gems created for and used by this project
+gem 'locator', '~> 0.0.2', :path => "lib/gems/locator"
+gem 'tweet_finder', '~> 0.0.5', :path => "lib/gems/tweet_finder"
+
+# External Gems added by this project
 gem 'devise', '~> 4.8', '>= 4.8.1'
 gem 'mail'
 gem 'twitter', '~> 7.0'

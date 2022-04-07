@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 
-# Generated then edited a custom Registration Controller to allows addition of Usernames.
+# Generated and then edited this custom Registration Controller (which extends from Devise) to allow addition of Usernames at account creation.
 # Overriding this at an application level created conflicts with other procedures, such as adding Relics to a profile
 # adding 'username' to configure_sign_up_params below fixes this
 

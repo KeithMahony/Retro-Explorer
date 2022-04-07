@@ -1,6 +1,7 @@
 require 'json'
 require "uri"
 require "net/http"
+# require 'tweet_finder'
 
 class RelicsController < ApplicationController
   before_action :set_relic, only: %i[ show edit update destroy ]
@@ -25,49 +26,21 @@ class RelicsController < ApplicationController
     @relic = current_user.relics.build
 
     # Air Now API
-    @url = 'https://www.airnowapi.org/aq/observation/zipCode/current/?format=application/json&zipCode=' + current_user.try(:location).to_s + '&distance=50&API_KEY=28F5C95B-17E7-4E9E-8124-9D6CDA1677FE'
-    @uri = URI(@url)
-    @response = Net::HTTP.get(@uri)
-    @output = JSON.parse(@response)
+    @output = Locate.runLocator(current_user.try(:location))
 
-    # Check API call is valid
-    # Update Twitter API call
+    # Check API call is valid pass result to Twitter API call
     if @output.empty? || !@output
-      @aqiOriginal = "AID cannot get a read from this location."
-      @aqiTweaked = "AID cannot get a read from this location."
-      @aqiTweakedLabel = "AID cannot get a read from this location."
       @locationName = "Unknown Location"
       @stateName = "Planet e32972"
-      url = URI("https://api.twitter.com/2/tweets/search/recent?query=world ending")
+      @tweet1 = FindTweet.runSearch("world ending")
     else
-      @aqiOriginal = @output[0]['AQI']
-      @aqiTweaked = (@output[0]['AQI']) *10
       @locationName = @output[0]['ReportingArea']
       @stateName = @output[0]['StateCode']
-      url = URI("https://api.twitter.com/2/tweets/search/recent?query=" + @locationName)
+      @tweet1 = FindTweet.runSearch( @locationName )
     end
-
-    # client = Twitter::REST::Client.new do |config|
-    # config.consumer_key        = "q6smznXFNdlfqHqLl9ir7YlSi"
-    # config.consumer_secret     = "EoxUjend1R86u8ImdMcvMQF2hN95xl3MUHY4loor9W6usLF5Mu"
-    # # config.access_token        = "YOUR_ACCESS_TOKEN"
-    # # config.access_token_secret = "YOUR_ACCESS_SECRET"
-    # end
 
     # Set Relic Device Name
     @relicName = "Glass-Faced Device"
-
-    # Set Relic Output
-    https = Net::HTTP.new(url.host, url.port)
-    https.use_ssl = true
-
-    request = Net::HTTP::Get.new(url)
-    request["Authorization"] = "Bearer AAAAAAAAAAAAAAAAAAAAADehbAEAAAAAWDquQnZpZ0%2Fs4w%2FW4sDMtA6%2FWi8%3DEfSmF2ZVWTIxIsu61Q5XcuNJVLqnozMawpYsoaYBIPbTmhY0sz"
-    request["Cookie"] = "guest_id=v1%3A164917039356586617"
-
-    response = https.request(request)
-    @collection = JSON.parse(response.body)
-    @tweet1 = @collection["data"][0]["text"]
 
   end
 

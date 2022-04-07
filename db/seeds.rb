@@ -4,5 +4,6 @@ User.create(
         email: "admin1@admin.com",
         password: "password",
         username: "admin",
-        admin: true
+        admin: true,
+        location: 88901
     )

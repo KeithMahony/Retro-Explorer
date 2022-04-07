@@ -2,15 +2,11 @@ class HomeController < ApplicationController
   def index
     require 'net/http'
     require 'json'
-    # Calling API from AirNow.gov and getting a response
-    # @url = 'https://www.airnowapi.org/aq/observation/latLong/current/?format=application/json
-    # &latitude=36.1088&longitude=-115.0595&distance=50&API_KEY=28F5C95B-17E7-4E9E-8124-9D6CDA1677FE'
 
-    @url = 'https://www.airnowapi.org/aq/observation/zipCode/current/?format=application/json&zipCode=' + current_user.try(:location).to_s + '&distance=50&API_KEY=28F5C95B-17E7-4E9E-8124-9D6CDA1677FE'
-    @uri = URI(@url)
-    @response = Net::HTTP.get(@uri)
-    @output = JSON.parse(@response)
-    # Check API call is valid
+    # Calling API from AirNow.gov and getting a response
+    @output = Locate.runLocator(current_user.try(:location))
+
+    # Check API call is valid / in a relevant location
     if @output.empty? || !@output
       @aqiOriginal = "AID cannot get a read from this location."
       @aqiTweaked = "AID cannot get a read from this location."
@@ -19,21 +15,13 @@ class HomeController < ApplicationController
       @stateName = "Planet e32972"
     else
       @aqiOriginal = @output[0]['AQI']
-      @aqiTweaked = (@output[0]['AQI']) *7
+      @aqiTweaked = (@output[0]['AQI']) * 7
       @locationName = @output[0]['ReportingArea']
       @stateName = @output[0]['StateCode']
     end
 
     @description = "A glowing device in your hand beeps twice. It's display informs you of your geolocation, and what the area was known as before the collapse, " + @locationName + ".
     Below the device's 'AID' label, a pulsing display is home to a barrage of real-time information..."
-
-
-
-
-
-
-
-
 
 #  Adjust background colour and flavour text based on Air Quality API response
 #  Tweaked adjustments
