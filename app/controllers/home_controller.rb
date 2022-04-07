@@ -1,5 +1,6 @@
 class HomeController < ApplicationController
-  before_action :set_breadcrumbs
+  before_action :set_cookie
+  before_action :show_cookie
 
   def index
     require 'net/http'
@@ -71,9 +72,9 @@ class HomeController < ApplicationController
 
 # Collect cookies containing basic user information
   def set_cookie
-    cookies.permanent.signed[:username] = current_user.try(:username)
-    cookies.permanent.signed[:email] = current_user.try(:email)
-    cookies.permanent.signed[:location] = current_user.try(:location)
+    @nameCookies = cookies.permanent[:username] = current_user.try(:username)
+    @emailCookies = cookies.permanent.signed[:email] = current_user.try(:email)
+    @locationCookies = cookies.permanent[:location] = current_user.try(:location)
   end
 
   def show_cookie
@@ -86,25 +87,6 @@ class HomeController < ApplicationController
     cookies.delete :username
     cookies.delete :email
     cookies.delete :location
-  end
-
-  # Keep track of user movement through application
-  private
-  def set_breadcrumbs
-    if session[:breadcrumbs]
-      @breadcrumbs = session[:breadcrumbs]
-    else
-    @breadcrumbs = Array.new
-    end
-
-    @breadcrumbs.push(request.url)
-
-    if @breadcrumbs.count > 4
-      @breadcrumbs.shift
-    end
-
-    session[:breadcrumbs] = @set_breadcrumbs
-
   end
 
   def relic

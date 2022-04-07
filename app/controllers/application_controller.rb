@@ -1,11 +1,23 @@
 class ApplicationController < ActionController::Base
+  before_action :set_breadcrumbs
 
-  # before_action :configure_sign_up_params, only: [:create]
-  #
-  #   protected
+    # Keep track of user movement through application
+    private
+    def set_breadcrumbs
+      if session[:breadcrumbs]
+        @breadcrumbs = session[:breadcrumbs]
+      else
+      @breadcrumbs = Array.new
+      end
 
-    # def configure_sign_up_params
-    #   devise_parameter_sanitizer.permit(:sign_up, keys: [:username])
-    # end
+      @breadcrumbs.push(request.url)
+
+      if @breadcrumbs.count > 4
+        @breadcrumbs.shift
+      end
+
+      session[:breadcrumbs] = @set_breadcrumbs
+
+    end
 
 end

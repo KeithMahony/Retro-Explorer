@@ -2,6 +2,14 @@
 
 <% if user_signed_in? %>
 
+  <% if !@nameCookies.empty?
+  helloName = cookies.signed[:auth_token] %>
+
+    <div class="alert alert-success" role="alert">
+      <h4 class="alert-heading">Welcome to Retro Explorer, <%= @u_name %> !</h4>
+    </div>
+  <% end %>
+
   <div class="p-3 mb-2 bg-gradient outline <%= @apiColour %> ">
     <div class="container">
       <h1 class="display-4 whiteTxt"><%= @locationName %>, <%= @stateName %></h1>
@@ -34,26 +42,14 @@
       Collect relics and projections, or leave messages for future generations of explorers.
     </p>
     <hr class="my-4">
-    <!-- <p class="whiteTxt">Explore the area to gather data and find relics of a forgotten past.</p> -->
     <div class="d-grid gap-2">
       <%= link_to 'Play', new_user_session_path , class: "btn btn-light"%>
     </div>
     <hr class="my-4">
-    <!-- <p class="whiteTxt">Travel to a new location.</p>
-    <button type="button" class="btn btn-outline-light">Travel East</button>
-    <button type="button" class="btn btn-outline-light">Travel West</button> -->
   </div>
 </div>
 
 <% end %>
 
-<!-- Danger Levels
-Good - 	Air quality is satisfactory, and air pollution poses little or no risk.
-Moderate - 	Air quality is acceptable. However, there may be a risk for some people, particularly those who are unusually sensitive to air pollution.
-Unhealthy for certain groups - Members of sensitive groups may experience health effects. The general public is less likely to be affected.
-Unhealthy - Some members of the general public may experience health effects; members of sensitive groups may experience more serious health effects.
-Very Unhealthy - Health alert: The risk of health effects is increased for everyone.
-Hazardous - Health warning of emergency conditions: everyone is more likely to be affected.
- -->
 
 <br/>

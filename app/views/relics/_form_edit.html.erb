@@ -1,0 +1,36 @@
+<%= form_with(model: relic) do |form| %>
+  <% if relic.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(relic.errors.count, "error") %> prohibited this relic from being saved:</h2>
+
+      <ul>
+        <% relic.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field form-group">
+    <% if @minimum_password_length %>
+    <em>(<%= @minimum_password_length %> characters minimum)</em>
+    <% end %><br />
+    <%= form.text_field :device_name, class: "form-control", value: @relic.device_name %>
+  </div>
+
+  <!-- Get and Set Device Output in the background -->
+    <div class="field form-group">
+      <%= form.text_field :device_output, class: "form-control", value: @relic.device_output, type: "hidden" %>
+    </div>
+
+<!-- Get and Set User ID in the background -->
+  <div class="field form-group">
+    <%= form.text_field :user_id, id: :relic_user_id, class: "form-control", value: current_user.id, type: "hidden" %>
+  </div>
+
+  <br/>
+
+  <div class="actions">
+    <%= form.submit "Label and Collect this Relic", class: 'btn btn-outline-light' %>
+  </div>
+<% end %>

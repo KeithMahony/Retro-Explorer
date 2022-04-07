@@ -14,10 +14,10 @@
             <%= link_to 'Relics', relics_path , class: "nav-link"%>
           </li>
           <li class="nav-item">
-            <%= link_to 'Projections', home_relic_path , class: "nav-link"%>
+            <a class="nav-link disabled">Projections</a>
           </li>
           <li class="nav-item">
-            <%= link_to 'Messages', home_relic_path , class: "nav-link"%>
+            <a class="nav-link disabled">Messages</a>
           </li>
         <% else %>
           <li class="nav-item">
@@ -43,9 +43,6 @@
             <li><hr class="dropdown-divider"></li>
             <li><a class="dropdown-item" href="#">Something else here</a></li>
           </ul>
-        </li> -->
-        <!-- <li class="nav-item">
-          <a class="nav-link disabled">Disabled</a>
         </li> -->
       </ul>
         <% if user_signed_in? %>

@@ -1,6 +1,12 @@
-<h1>Editing Relic</h1>
+<body style="background-color:#1d1e1f;">
+<div class = "container">
+  <h2 class = "whiteTxt">Edit Relic</h2>
 
-<%= render 'form', relic: @relic %>
+<%= render 'form_edit', relic: @relic %>
 
-<%= link_to 'Show', @relic %> |
-<%= link_to 'Back', relics_path %>
+<%= link_to 'Cancel Edit', @relic, class: "btn btn-outline-danger btn-sm" %>
+
+  <br/>
+
+  <br/>
+</div>
